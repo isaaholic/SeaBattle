@@ -110,7 +110,8 @@ void addShip1(int** cor, int tagX, int tagY)
 			cor[tagX + 1][tagY - 1] = 2;
 			cor[tagX + 1][tagY] = 2;
 			cor[tagX + 1][tagY + 1] = 2;
-			count1p1--;
+			count2p1--;
+			maxShip2--;
 
 		}
 		else if (count2p1 == 0)
@@ -274,7 +275,7 @@ void addShip3(int** cor, int tagX, int tagY)
 	}
 }
 
-void crossController(int** cor, int& tagX, int& tagY, int size)
+void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 {
 	int c = 0;
 	switch ((c = _putch(_getch())))
@@ -332,6 +333,61 @@ void crossController(int** cor, int& tagX, int& tagY, int size)
 	}
 }
 
+void attackShip(int** cor,int tagX,int tagY)
+{
+	if (cor[tagX][tagY] == 1)
+	{
+		if (cor[tagX][tagY + 1] == 1)
+			cor[tagX][tagY] = 2;
+		else if (cor[tagX][tagY - 1] == 1)
+			cor[tagX][tagY] = 2;
+		else if (cor[tagX + 1][tagY] == 1)
+			cor[tagX][tagY] = 2;
+		else if (cor[tagX - 1][tagY] == 1)
+			cor[tagX][tagY] = 2;
+		else
+		{
+			if (cor[tagX][tagY + 1] == 1)
+				cor[tagX][tagY] = 3;
+			if (cor[tagX][tagY - 1] == 1)
+				cor[tagX][tagY] = 3;
+			if (cor[tagX + 1][tagY] == 1)
+				cor[tagX][tagY] = 3;
+			if (cor[tagX - 1][tagY] == 1)
+				cor[tagX][tagY] = 3;
+			cor[tagX][tagY] = 3;
+		}
+	}
+}
+
+void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
+{
+	int c = 0;
+	switch ((c = _putch(_getch())))
+	{
+	case KEY_UP:
+		if (tagX != 1)
+			tagX--;
+		break;
+	case KEY_DOWN:
+		if (tagX != size - 2)
+			tagX++;
+		break;
+	case KEY_LEFT:
+		if (tagY != 1)
+			tagY--;
+		break;
+	case KEY_RIGHT:
+		if (tagY != size - 2)
+			tagY++;
+		break;
+	case 'e':
+	case 'E':
+		attackShip(cor,tagX,tagY);
+		break;
+	}
+}
+
 
 //void showTable(char** arr, int** cor, int& size, int& tagX, int& tagY)
 //{
@@ -348,7 +404,7 @@ void crossController(int** cor, int& tagX, int& tagY, int size)
 //	crossController(cor, tagX, tagY, size);
 //}
 
-void createTable(char** arr, int** cor, int size, int tagX, int tagY)
+void createTableForPlace(char** arr, int** cor, int size, int tagX, int tagY)
 {
 	for (size_t i = 0; i < size; i++)
 	{
@@ -357,6 +413,21 @@ void createTable(char** arr, int** cor, int size, int tagX, int tagY)
 			if (cor[i][j] == 1) arr[i][j] = 232;
 			else if (i == 0 || i == size - 1) arr[i][j] = 178;
 			else if (j == 0 || j == size - 1)arr[i][j] = 178;
+			else arr[i][j] = 176;
+		}
+	}
+}
+
+void createTableForBattle(char** arr, int** cor, int size, int tagX, int tagY)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			if (i == 0 || i == size - 1) arr[i][j] = 178;
+			else if (j == 0 || j == size - 1)arr[i][j] = 178;
+			else if (cor[i][j] == 2) arr[i][j] = 'H';
+			else if (cor[i][j] == 3) arr[i][j] = 'A';
 			else arr[i][j] = 176;
 		}
 	}
