@@ -131,7 +131,7 @@ void addShip2(int** cor, int tagX, int tagY)
 	static int count1p2 = 3;
 	static int count2p2 = 3;
 	int tag2Y = tagY + 1;
-	if (turn1)
+	if (turn1 && tag2Y != 13)
 	{
 		if (count1p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
 		{
@@ -162,7 +162,7 @@ void addShip2(int** cor, int tagX, int tagY)
 			Sleep(1500);
 		}
 	}
-	else
+	else if (turn2 && tag2Y != 13)
 	{
 		if (count2p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
 		{
@@ -193,6 +193,11 @@ void addShip2(int** cor, int tagX, int tagY)
 			Sleep(1500);
 		}
 	}
+	else
+	{
+		cout << "\nYour choice is very close to the protected land";
+		Sleep(1500);
+	}
 }
 
 void addShip3(int** cor, int tagX, int tagY)
@@ -201,7 +206,7 @@ void addShip3(int** cor, int tagX, int tagY)
 	static int count1p3 = 2;
 	int tag2Y = tagY + 1;
 	int tag3Y = tagY + 2;
-	if (turn1)
+	if (turn1 && tag3Y != 13)
 	{
 		if (count1p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
 		{
@@ -229,7 +234,7 @@ void addShip3(int** cor, int tagX, int tagY)
 		}
 		else if (count1p3 == 0)
 		{
-			cout << "\nYou don't have a ship with 2 power";
+			cout << "\nYou don't have a ship with 3 power";
 			Sleep(1500);
 		}
 		else {
@@ -237,7 +242,7 @@ void addShip3(int** cor, int tagX, int tagY)
 			Sleep(1500);
 		}
 	}
-	else
+	else if (turn2 && tag3Y != 13)
 	{
 		if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
 		{
@@ -272,6 +277,11 @@ void addShip3(int** cor, int tagX, int tagY)
 			cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
+	}
+	else
+	{
+		cout << "\nYour choice is very close to the protected land";
+		Sleep(1500);
 	}
 }
 
