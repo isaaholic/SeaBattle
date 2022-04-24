@@ -17,7 +17,9 @@ int tagX = 1;
 int tagY = 1;
 int row = 14;
 int maxShip1 = 9;
+int liveShip1 = 9;
 int maxShip2 = 9;
+int liveShip2 = 9;
 bool turn1 = true;
 bool turn2 = false;
 bool placeMod = true;
@@ -149,6 +151,16 @@ int main()
 
 		deleteTable(playerTableOne, row);
 		deleteTable(playerTableTwo, row);
+		if (!liveShip1)
+		{
+			system("cls||clear");
+			cout << "Player 2 is Winner!\nCongratsssss...";
+		}
+		else if (!liveShip2)
+		{
+			system("cls||clear");
+			cout << "Player 1 is winner!\nCongratsssss...";
+		}
 	}
 
 	cout << "\n\n\nThe game is over. Press any key to exit." << endl;

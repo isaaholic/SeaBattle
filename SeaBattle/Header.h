@@ -338,24 +338,28 @@ void attackShip(int** cor,int tagX,int tagY)
 	if (cor[tagX][tagY] == 1)
 	{
 		if (cor[tagX][tagY + 1] == 1)
-			cor[tagX][tagY] = 2;
+			cor[tagX][tagY] = 3;
 		else if (cor[tagX][tagY - 1] == 1)
-			cor[tagX][tagY] = 2;
+			cor[tagX][tagY] = 3;
 		else if (cor[tagX + 1][tagY] == 1)
-			cor[tagX][tagY] = 2;
+			cor[tagX][tagY] = 3;
 		else if (cor[tagX - 1][tagY] == 1)
-			cor[tagX][tagY] = 2;
+			cor[tagX][tagY] = 3;
 		else
 		{
 			if (cor[tagX][tagY + 1] == 1)
-				cor[tagX][tagY] = 3;
+				cor[tagX][tagY] = 4;
 			if (cor[tagX][tagY - 1] == 1)
-				cor[tagX][tagY] = 3;
+				cor[tagX][tagY] = 4;
 			if (cor[tagX + 1][tagY] == 1)
-				cor[tagX][tagY] = 3;
+				cor[tagX][tagY] = 4;
 			if (cor[tagX - 1][tagY] == 1)
-				cor[tagX][tagY] = 3;
-			cor[tagX][tagY] = 3;
+				cor[tagX][tagY] = 4;
+			cor[tagX][tagY] = 4;
+			if (turn1)
+				liveShip1--;
+			if (turn2)
+				liveShip2--;
 		}
 	}
 }
@@ -426,8 +430,8 @@ void createTableForBattle(char** arr, int** cor, int size, int tagX, int tagY)
 		{
 			if (i == 0 || i == size - 1) arr[i][j] = 178;
 			else if (j == 0 || j == size - 1)arr[i][j] = 178;
-			else if (cor[i][j] == 2) arr[i][j] = 'H';
-			else if (cor[i][j] == 3) arr[i][j] = 'A';
+			else if (cor[i][j] == 3) arr[i][j] = 'H';
+			else if (cor[i][j] == 4) arr[i][j] = 'A';
 			else arr[i][j] = 176;
 		}
 	}
