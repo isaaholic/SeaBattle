@@ -24,6 +24,7 @@ bool turn1 = true;
 bool turn2 = false;
 bool placeMod = true;
 bool battleMod = false;
+bool detected = true;
 
 #include "Header.h"
 
@@ -129,18 +130,7 @@ int main()
 
 			for (size_t j = 0; j < row * 2; j++)
 			{
-				if (turn1 && j < row)
-				{
-					cout << fulltable[i][j];
-				}
-				else if (turn2 && j >= row)
-				{
-					cout << fulltable[i][j];
-				}
-				else
-				{
-					cout << ' ';
-				}
+				cout << fulltable[i][j];
 			}
 			cout << endl;
 		}
@@ -155,11 +145,13 @@ int main()
 		{
 			system("cls||clear");
 			cout << "Player 2 is Winner!\nCongratsssss...";
+			battleMod = false;
 		}
 		else if (!liveShip2)
 		{
 			system("cls||clear");
 			cout << "Player 1 is winner!\nCongratsssss...";
+			battleMod = false;
 		}
 	}
 

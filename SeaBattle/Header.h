@@ -70,7 +70,7 @@ void crossShower(char** arr, int size, int tagX, int tagY)
 void addShip1(int** cor, int tagX, int tagY)
 {
 	static int count1p1 = 4;
-	static int count2p1= 4;
+	static int count2p1 = 4;
 	if (turn1)
 	{
 		if (count1p1 && cor[tagX][tagY] == 0)
@@ -85,7 +85,7 @@ void addShip1(int** cor, int tagX, int tagY)
 			cor[tagX + 1][tagY] = 2;
 			cor[tagX + 1][tagY + 1] = 2;
 			count1p1--;
-				maxShip1--;
+			maxShip1--;
 		}
 		else if (count1p1 == 0)
 		{
@@ -150,7 +150,7 @@ void addShip2(int** cor, int tagX, int tagY)
 			cor[tagX][tag2Y + 1] = 2;
 
 			count1p2--;
-				maxShip1--;
+			maxShip1--;
 		}
 		else if (count1p2 == 0)
 		{
@@ -222,9 +222,9 @@ void addShip3(int** cor, int tagX, int tagY)
 			cor[tagX][tagY - 1] = 2;
 			cor[tagX][tag3Y + 1] = 2;
 
-			
-				maxShip1--;
-				count1p3--;
+
+			maxShip1--;
+			count1p3--;
 
 		}
 		else if (count1p3 == 0)
@@ -333,7 +333,7 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 	}
 }
 
-void attackShip(int** cor,int tagX,int tagY)
+void attackShip(int** cor, int tagX, int tagY)
 {
 	if (cor[tagX][tagY] == 1)
 	{
@@ -347,19 +347,45 @@ void attackShip(int** cor,int tagX,int tagY)
 			cor[tagX][tagY] = 3;
 		else
 		{
-			if (cor[tagX][tagY + 1] == 1)
-				cor[tagX][tagY] = 4;
-			if (cor[tagX][tagY - 1] == 1)
-				cor[tagX][tagY] = 4;
-			if (cor[tagX + 1][tagY] == 1)
-				cor[tagX][tagY] = 4;
-			if (cor[tagX - 1][tagY] == 1)
-				cor[tagX][tagY] = 4;
+			if (cor[tagX][tagY + 1] == 3)
+				cor[tagX][tagY + 1] = 4;
+			if (tagY < 12 && cor[tagX][tagY + 2] == 3)
+				cor[tagX][tagY + 2] = 4;
+			if (cor[tagX][tagY - 1] == 3)
+				cor[tagX][tagY - 1] = 4;
+			if (tagY > 1 && cor[tagX][tagY - 2] == 3)
+				cor[tagX][tagY - 2] = 4;
+			if (cor[tagX + 1][tagY] == 3)
+				cor[tagX + 1][tagY] = 4;
+			if (tagX < 12 && cor[tagX + 2][tagY] == 3)
+				cor[tagX + 2][tagY] = 4;
+			if (cor[tagX - 1][tagY] == 3)
+				cor[tagX - 1][tagY] = 4;
+			if (tagX > 1 && cor[tagX - 2][tagY] == 3)
+				cor[tagX - 2][tagY] = 4;
 			cor[tagX][tagY] = 4;
 			if (turn1)
+			{
 				liveShip1--;
-			if (turn2)
+			}
+			else if (turn2)
+			{
 				liveShip2--;
+			}
+		}
+	}
+	else
+	{
+		cor[tagX][tagY] = 5;
+		if (turn1)
+		{
+			turn1 = false;
+			turn2 = true;
+		}
+		else if (turn2)
+		{
+			turn1 = true;
+			turn2 = false;
 		}
 	}
 }
@@ -387,7 +413,7 @@ void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
 		break;
 	case 'e':
 	case 'E':
-		attackShip(cor,tagX,tagY);
+		attackShip(cor, tagX, tagY);
 		break;
 	}
 }
@@ -432,6 +458,7 @@ void createTableForBattle(char** arr, int** cor, int size, int tagX, int tagY)
 			else if (j == 0 || j == size - 1)arr[i][j] = 178;
 			else if (cor[i][j] == 3) arr[i][j] = 'H';
 			else if (cor[i][j] == 4) arr[i][j] = 'A';
+			else if (cor[i][j] == 5) arr[i][j] = 'M';
 			else arr[i][j] = 176;
 		}
 	}
