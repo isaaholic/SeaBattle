@@ -1,5 +1,33 @@
 #pragma once
 
+char** createFulltable(int size)
+{
+	char** fullTable = new char* [size];
+	for (size_t i = 0; i < size; i++)
+	{
+		fullTable[i] = new char[size * 2];
+	}
+	return fullTable;
+}
+
+void fullTable(char** arr, char** arr1, char** arr2, int size)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			arr[i][j] = arr1[i][j];
+		}
+	}
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = size; j < size * 2; j++)
+		{
+			arr[i][j] = arr2[i][j - size];
+		}
+	}
+}
+
 char** createArray(int row)
 {
 	char** table = new char* [row];
@@ -41,98 +69,208 @@ void crossShower(char** arr, int size, int tagX, int tagY)
 
 void addShip1(int** cor, int tagX, int tagY)
 {
-	static int count1 = 4;
-	if (count1 && cor[tagX][tagY] == 0)
+	static int count1p1 = 4;
+	static int count2p1= 4;
+	if (turn1)
 	{
-		cor[tagX][tagY] = 1;
-		cor[tagX - 1][tagY - 1] = 2;
-		cor[tagX - 1][tagY] = 2;
-		cor[tagX - 1][tagY + 1] = 2;
-		cor[tagX][tagY - 1] = 2;
-		cor[tagX][tagY + 1] = 2;
-		cor[tagX + 1][tagY - 1] = 2;
-		cor[tagX + 1][tagY] = 2;
-		cor[tagX + 1][tagY + 1] = 2;
-		count1--;
+		if (count1p1 && cor[tagX][tagY] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tagY + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tagY + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tagY + 1] = 2;
+			count1p1--;
+				maxShip1--;
+		}
+		else if (count1p1 == 0)
+		{
+			cout << "\nYou don't have a ship with a power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
-	else if (count1 == 0)
+	else
 	{
-		cout << "\nYou don't have a ship with a power";
-		Sleep(1500);
-	}
-	else {
-		cout << "\nYour choice is very close to the protected land";
-		Sleep(1500);
+		if (count2p1 && cor[tagX][tagY] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tagY + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tagY + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tagY + 1] = 2;
+			count1p1--;
+
+		}
+		else if (count2p1 == 0)
+		{
+			cout << "\nYou don't have a ship with a power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
 }
 
 void addShip2(int** cor, int tagX, int tagY)
 {
-	static int count2 = 3;
+	static int count1p2 = 3;
+	static int count2p2 = 3;
 	int tag2Y = tagY + 1;
-	if (count2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+	if (turn1)
 	{
-		cor[tagX][tagY] = 1;
-		cor[tagX][tag2Y] = 1;
+		if (count1p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX][tag2Y] = 1;
 
-		cor[tagX - 1][tagY - 1] = 2;
-		cor[tagX - 1][tagY] = 2;
-		cor[tagX - 1][tag2Y] = 2;
-		cor[tagX - 1][tag2Y + 1] = 2;
-		cor[tagX + 1][tagY - 1] = 2;
-		cor[tagX + 1][tagY] = 2;
-		cor[tagX + 1][tag2Y] = 2;
-		cor[tagX + 1][tag2Y + 1] = 2;
-		cor[tagX][tagY - 1] = 2;
-		cor[tagX][tag2Y + 1] = 2;
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tag2Y] = 2;
+			cor[tagX - 1][tag2Y + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tag2Y] = 2;
+			cor[tagX + 1][tag2Y + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tag2Y + 1] = 2;
 
-		count2--;
+			count1p2--;
+				maxShip1--;
+		}
+		else if (count1p2 == 0)
+		{
+			cout << "\nYou don't have a ship with 2 power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
-	else if (count2 == 0)
+	else
 	{
-		cout << "\nYou don't have a ship with 2 power";
-		Sleep(1500);
-	}
-	else {
-		cout << "\nYour choice is very close to the protected land"; 
-		Sleep(1500);
+		if (count2p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX][tag2Y] = 1;
+
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tag2Y] = 2;
+			cor[tagX - 1][tag2Y + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tag2Y] = 2;
+			cor[tagX + 1][tag2Y + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tag2Y + 1] = 2;
+
+			count2p2--;
+			maxShip2--;
+		}
+		else if (count2p2 == 0)
+		{
+			cout << "\nYou don't have a ship with 2 power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
 }
 
 void addShip3(int** cor, int tagX, int tagY)
 {
-	static int count3 = 2;
+	static int count2p3 = 2;
+	static int count1p3 = 2;
 	int tag2Y = tagY + 1;
 	int tag3Y = tagY + 2;
-	if (count3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0&&cor[tagX][tag3Y]==0)
+	if (turn1)
 	{
-		cor[tagX][tagY] = 1;
-		cor[tagX][tag2Y] = 1;
-		cor[tagX][tag3Y] = 1;
+		if (count1p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX][tag2Y] = 1;
+			cor[tagX][tag3Y] = 1;
 
-		cor[tagX - 1][tagY - 1] = 2;
-		cor[tagX - 1][tagY] = 2;
-		cor[tagX - 1][tag2Y] = 2;
-		cor[tagX - 1][tag3Y] = 2;
-		cor[tagX - 1][tag3Y + 1] = 2;
-		cor[tagX + 1][tagY - 1] = 2;
-		cor[tagX + 1][tagY] = 2;
-		cor[tagX + 1][tag2Y] = 2;
-		cor[tagX + 1][tag3Y] = 2;
-		cor[tagX + 1][tag3Y + 1] = 2;
-		cor[tagX][tagY - 1] = 2;
-		cor[tagX][tag3Y + 1] = 2;
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tag2Y] = 2;
+			cor[tagX - 1][tag3Y] = 2;
+			cor[tagX - 1][tag3Y + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tag2Y] = 2;
+			cor[tagX + 1][tag3Y] = 2;
+			cor[tagX + 1][tag3Y + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tag3Y + 1] = 2;
 
-		count3--;
+			
+				maxShip1--;
+				count1p3--;
+
+		}
+		else if (count1p3 == 0)
+		{
+			cout << "\nYou don't have a ship with 2 power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
-	else if (count3 == 0)
+	else
 	{
-		cout << "\nYou don't have a ship with 2 power";
-		Sleep(1500);
-	}
-	else {
-		cout << "\nYour choice is very close to the protected land"; 
-		Sleep(1500);
+		if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+		{
+			cor[tagX][tagY] = 1;
+			cor[tagX][tag2Y] = 1;
+			cor[tagX][tag3Y] = 1;
+
+			cor[tagX - 1][tagY - 1] = 2;
+			cor[tagX - 1][tagY] = 2;
+			cor[tagX - 1][tag2Y] = 2;
+			cor[tagX - 1][tag3Y] = 2;
+			cor[tagX - 1][tag3Y + 1] = 2;
+			cor[tagX + 1][tagY - 1] = 2;
+			cor[tagX + 1][tagY] = 2;
+			cor[tagX + 1][tag2Y] = 2;
+			cor[tagX + 1][tag3Y] = 2;
+			cor[tagX + 1][tag3Y + 1] = 2;
+			cor[tagX][tagY - 1] = 2;
+			cor[tagX][tag3Y + 1] = 2;
+
+
+			maxShip2--;
+			count2p3--;
+
+		}
+		else if (count2p3 == 0)
+		{
+			cout << "\nYou don't have a ship with 2 power";
+			Sleep(1500);
+		}
+		else {
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
 }
 
@@ -167,6 +305,7 @@ void crossController(int** cor, int& tagX, int& tagY, int size)
 			addShip3(cor, tagX, tagY);
 		break;
 	case 'f':
+	case 'F':
 		int k = 0;
 		cout << "Enter Power of Your Ship";
 		cin >> k;
@@ -194,20 +333,20 @@ void crossController(int** cor, int& tagX, int& tagY, int size)
 }
 
 
-void showTable(char** arr, int** cor, int& size, int& tagX, int& tagY)
-{
-	system("cls||clear");
-	for (size_t i = 0; i < size; i++)
-	{
-		for (size_t j = 0; j < size; j++)
-		{
-			cout << arr[i][j];
-		}
-		cout << endl;
-	}
-	cout << tagX << ' ' << tagY<<endl<<endl;
-	crossController(cor, tagX, tagY, size);
-}
+//void showTable(char** arr, int** cor, int& size, int& tagX, int& tagY)
+//{
+//	system("cls||clear");
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		for (size_t j = 0; j < size; j++)
+//		{
+//			cout << arr[i][j];
+//		}
+//		cout << endl;
+//	}
+//	cout << tagX << ' ' << tagY << endl << endl;
+//	crossController(cor, tagX, tagY, size);
+//}
 
 void createTable(char** arr, int** cor, int size, int tagX, int tagY)
 {
