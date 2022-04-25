@@ -560,11 +560,11 @@ void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 		{
 			if (j >= row)
 			{
-				if (cor1[i][j-10] == 3)
+				if (cor1[i][j-14] == 3)
 					SetConsoleTextAttribute(h, 14);
-				else if (cor1[i][j-10] == 4)
+				else if (cor1[i][j-14] == 4)
 					SetConsoleTextAttribute(h, 2);
-				else if (cor1[i][j-10] == 5)
+				else if (cor1[i][j-14] == 5)
 					SetConsoleTextAttribute(h, 4);
 				else
 					SetConsoleTextAttribute(h, 15);
