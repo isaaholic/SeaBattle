@@ -300,7 +300,28 @@ void mainController(int& c)
 	case 'E':
 		system("cls||clear");
 		if (c == 0)
-			cout << "Starting game...";
+		{
+			cout << "Starting game.";
+			int f = 5;
+			while (f)
+			{
+				system("cls||clear");
+				cout << "Starting game..";
+				Sleep(250);
+				system("cls||clear");
+				cout << "Starting game...";
+				Sleep(250);
+				system("cls||clear");
+				cout << "Starting game..";
+				Sleep(250);
+				system("cls||clear");
+				cout << "Starting game.";
+				Sleep(250);
+				f--;
+			}
+			isMain = false;
+			placeMod = true;
+		}
 		else exit(0);
 		break;
 	}
@@ -339,7 +360,8 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 	case 'f':
 	case 'F':
 		int k = 0;
-		cout << "Enter Power of Your Ship";
+		cout << "Enter Power of Your Ship: " << endl;
+		cout << "1-*\n2-**\n3-***";
 		cin >> k;
 		switch (k)
 		{
@@ -529,18 +551,37 @@ void showFullTableForPlace(char** fulltable)
 	}
 }
 
-void showFullTableForBattle(char** fulltable)
+void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 {
 	for (size_t i = 0; i < row; i++)
 	{
-		int ss;
-		if (turn1)
-			ss = 0;
-		else ss = 10;
 
 		for (size_t j = 0; j < row * 2; j++)
 		{
-			cout << fulltable[i][j];
+			if (j >= row)
+			{
+				if (cor1[i][j-10] == 3)
+					SetConsoleTextAttribute(h, 14);
+				else if (cor1[i][j-10] == 4)
+					SetConsoleTextAttribute(h, 2);
+				else if (cor1[i][j-10] == 5)
+					SetConsoleTextAttribute(h, 4);
+				else
+					SetConsoleTextAttribute(h, 15);
+				cout << fulltable[i][j];
+			}
+			else
+			{
+				if (cor2[i][j] == 3)
+					SetConsoleTextAttribute(h, 14);
+				else if (cor2[i][j] == 4)
+					SetConsoleTextAttribute(h, 2);
+				else if (cor2[i][j] == 5)
+					SetConsoleTextAttribute(h, 4);
+				else
+					SetConsoleTextAttribute(h, 15);
+				cout << fulltable[i][j];
+			}
 		}
 		cout << endl;
 	}

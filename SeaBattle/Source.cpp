@@ -22,14 +22,18 @@ int maxShip2 = 9;
 int liveShip2 = 9;
 bool turn1 = true;
 bool turn2 = false;
-bool placeMod = true;
+bool placeMod = false;
 bool battleMod = false;
 bool detected = true;
+bool isMain = true;
+HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 #include "Header.h"
 
 int main()
 {
+	cout << right;
+
 	char** playerTableOne;
 	char** playerTableTwo;
 	char** freeTable = createFulltable(row);
@@ -39,19 +43,26 @@ int main()
 	int** cordinate2 = createCoArray(row);
 	fillCordinateArray(cordinate1, row);
 	fillCordinateArray(cordinate2, row);
-	//{
-	//	while (1)
-	//	{
-	//		system("cls||clear");
-	//		int c = 0;
-	//		cout << "Welcome to BattleShip"<<c;
-	//		cout << "\nStart game";
-	//		c == 0 ? cout << char(60) : cout << ' ';
-	//		cout << "\nExit";
-	//		c == 1 ? cout << char(60) : cout << ' ';
-	//		mainController(c);
-	//	}
-	//}
+	{
+		int c = 0;
+		while (isMain)
+		{
+			system("cls||clear");
+			SetConsoleTextAttribute(h, 9);
+			cout << setw(30) << "Welcome to BattleShip" << endl;
+			SetConsoleTextAttribute(h, 12);
+			cout << setw(25) << "Start game";
+			SetConsoleTextAttribute(h, 15);
+			c == 0 ? cout << char(60) : cout << ' ';
+			cout << endl;
+			SetConsoleTextAttribute(h, 10);
+			cout << setw(22) << "Exit";
+			SetConsoleTextAttribute(h, 15);
+			c == 1 ? cout << char(60) : cout << ' ';
+			cout << endl;
+			mainController(c);
+		}
+	}
 
 	while (placeMod)
 	{
@@ -71,6 +82,7 @@ int main()
 		else cout << setw(24) << "Player 2: ";
 		cout << endl;
 		showFullTableForPlace(fulltable);
+		cout << "Press 'f' to select ship";
 		cout << maxShip1 << endl;
 		cout << maxShip2 << endl;
 		if (turn1)
@@ -110,7 +122,7 @@ int main()
 			cout << "Player 1:";
 		else cout << setw(24) << "Player 2: ";
 		cout << endl;
-		showFullTableForBattle(fulltable);
+		showFullTableForBattle(fulltable,cordinate1,cordinate2);
 		if (turn1)
 			crossControllerForBattle(cordinate2, tagX, tagY, row);
 		if (turn2)
