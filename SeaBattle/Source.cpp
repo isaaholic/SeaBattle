@@ -36,11 +36,23 @@ int main()
 	int** freeCor = createCoArray(row);
 	char** fulltable = createFulltable(row);
 	int** cordinate1 = createCoArray(row);
-	//createTableForP(freeTable, freeCor, row, 0, 0);
 	int** cordinate2 = createCoArray(row);
-	//createTable(freeTable, freeCor, 2 * row, 0, 0);
 	fillCordinateArray(cordinate1, row);
 	fillCordinateArray(cordinate2, row);
+	//{
+	//	while (1)
+	//	{
+	//		system("cls||clear");
+	//		int c = 0;
+	//		cout << "Welcome to BattleShip"<<c;
+	//		cout << "\nStart game";
+	//		c == 0 ? cout << char(60) : cout << ' ';
+	//		cout << "\nExit";
+	//		c == 1 ? cout << char(60) : cout << ' ';
+	//		mainController(c);
+	//	}
+	//}
+
 	while (placeMod)
 	{
 		playerTableOne = createArray(row);
@@ -58,30 +70,7 @@ int main()
 			cout << "Player 1:";
 		else cout << setw(24) << "Player 2: ";
 		cout << endl;
-		for (size_t i = 0; i < row; i++)
-		{
-			int ss;
-			if (turn1)
-				ss = 0;
-			else ss = 10;
-
-			for (size_t j = 0; j < row * 2; j++)
-			{
-				if (turn1 && j < row)
-				{
-					cout << fulltable[i][j];
-				}
-				else if (turn2 && j >= row)
-				{
-					cout << fulltable[i][j];
-				}
-				else
-				{
-					cout << ' ';
-				}
-			}
-			cout << endl;
-		}
+		showFullTableForPlace(fulltable);
 		cout << maxShip1 << endl;
 		cout << maxShip2 << endl;
 		if (turn1)
@@ -121,24 +110,11 @@ int main()
 			cout << "Player 1:";
 		else cout << setw(24) << "Player 2: ";
 		cout << endl;
-		for (size_t i = 0; i < row; i++)
-		{
-			int ss;
-			if (turn1)
-				ss = 0;
-			else ss = 10;
-
-			for (size_t j = 0; j < row * 2; j++)
-			{
-				cout << fulltable[i][j];
-			}
-			cout << endl;
-		}
+		showFullTableForBattle(fulltable);
 		if (turn1)
 			crossControllerForBattle(cordinate2, tagX, tagY, row);
 		if (turn2)
 			crossControllerForBattle(cordinate1, tagX, tagY, row);
-
 		deleteTable(playerTableOne, row);
 		deleteTable(playerTableTwo, row);
 		if (!liveShip1)

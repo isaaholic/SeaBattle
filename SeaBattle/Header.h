@@ -285,6 +285,27 @@ void addShip3(int** cor, int tagX, int tagY)
 	}
 }
 
+void mainController(int& c)
+{
+	int k;
+	switch (k = _putch(_getch()))
+	{
+	case KEY_UP:
+		c = 0;
+		break;
+	case KEY_DOWN:
+		c = 1;
+		break;
+	case 'e':
+	case 'E':
+		system("cls||clear");
+		if (c == 0)
+			cout << "Starting game...";
+		else exit(0);
+		break;
+	}
+}
+
 void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 {
 	int c = 0;
@@ -358,21 +379,29 @@ void attackShip(int** cor, int tagX, int tagY)
 		else
 		{
 			if (cor[tagX][tagY + 1] == 3)
+			{
 				cor[tagX][tagY + 1] = 4;
-			if (tagY < 12 && cor[tagX][tagY + 2] == 3)
-				cor[tagX][tagY + 2] = 4;
+				if (tagY < 12 && cor[tagX][tagY + 2] == 3)
+					cor[tagX][tagY + 2] = 4;
+			}
 			if (cor[tagX][tagY - 1] == 3)
+			{
 				cor[tagX][tagY - 1] = 4;
-			if (tagY > 1 && cor[tagX][tagY - 2] == 3)
-				cor[tagX][tagY - 2] = 4;
+				if (tagY > 1 && cor[tagX][tagY - 2] == 3)
+					cor[tagX][tagY - 2] = 4;
+			}
 			if (cor[tagX + 1][tagY] == 3)
+			{
 				cor[tagX + 1][tagY] = 4;
-			if (tagX < 12 && cor[tagX + 2][tagY] == 3)
-				cor[tagX + 2][tagY] = 4;
+				if (tagX < 12 && cor[tagX + 2][tagY] == 3)
+					cor[tagX + 2][tagY] = 4;
+			}
 			if (cor[tagX - 1][tagY] == 3)
+			{
 				cor[tagX - 1][tagY] = 4;
-			if (tagX > 1 && cor[tagX - 2][tagY] == 3)
-				cor[tagX - 2][tagY] = 4;
+				if (tagX > 1 && cor[tagX - 2][tagY] == 3)
+					cor[tagX - 2][tagY] = 4;
+			}
 			cor[tagX][tagY] = 4;
 			if (turn1)
 			{
@@ -383,6 +412,11 @@ void attackShip(int** cor, int tagX, int tagY)
 				liveShip2--;
 			}
 		}
+	}
+	else if (cor[tagX][tagY] != 0 && cor[tagX][tagY] != 2)
+	{
+		cout << "Please attack other place";
+		Sleep(500);
 	}
 	else
 	{
@@ -428,22 +462,6 @@ void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
 	}
 }
 
-
-//void showTable(char** arr, int** cor, int& size, int& tagX, int& tagY)
-//{
-//	system("cls||clear");
-//	for (size_t i = 0; i < size; i++)
-//	{
-//		for (size_t j = 0; j < size; j++)
-//		{
-//			cout << arr[i][j];
-//		}
-//		cout << endl;
-//	}
-//	cout << tagX << ' ' << tagY << endl << endl;
-//	crossController(cor, tagX, tagY, size);
-//}
-
 void createTableForPlace(char** arr, int** cor, int size, int tagX, int tagY)
 {
 	for (size_t i = 0; i < size; i++)
@@ -481,4 +499,49 @@ void deleteTable(char** arr, int size)
 		delete[] arr[i];
 	}
 	delete[] arr;
+}
+
+void showFullTableForPlace(char** fulltable)
+{
+	for (size_t i = 0; i < row; i++)
+	{
+		int ss;
+		if (turn1)
+			ss = 0;
+		else ss = 10;
+
+		for (size_t j = 0; j < row * 2; j++)
+		{
+			if (turn1 && j < row)
+			{
+				cout << fulltable[i][j];
+			}
+			else if (turn2 && j >= row)
+			{
+				cout << fulltable[i][j];
+			}
+			else
+			{
+				cout << ' ';
+			}
+		}
+		cout << endl;
+	}
+}
+
+void showFullTableForBattle(char** fulltable)
+{
+	for (size_t i = 0; i < row; i++)
+	{
+		int ss;
+		if (turn1)
+			ss = 0;
+		else ss = 10;
+
+		for (size_t j = 0; j < row * 2; j++)
+		{
+			cout << fulltable[i][j];
+		}
+		cout << endl;
+	}
 }
