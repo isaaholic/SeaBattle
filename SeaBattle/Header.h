@@ -62,15 +62,45 @@ void crossShower(char** arr, int size, int tagX, int tagY)
 		for (size_t j = 0; j < size; j++)
 		{
 			if (i == tagX && j == tagY)
-				arr[i][j] = 43;
+			{
+				if (isActive1)
+				{
+					arr[i][j]=232;
+				}
+				else if (isActive2)
+				{
+						arr[i][j] = 232;
+					if (rotated)
+					{
+						arr[i][j + 1] = 232;
+					}
+					else
+					{
+						arr[i + 1][j] = 232;
+					}
+				}
+				else if (isActive3)
+				{
+					arr[i][j] = 232;
+					if (rotated)
+					{
+						arr[i][j + 1] = 232;
+						arr[i][j + 2] = 232;
+					}
+					else
+					{
+						arr[i + 1][j] = 232;
+						arr[i + 2][j] = 232;
+					}
+				}
+				else arr[i][j] = 43;
+			}
 		}
 	}
 }
 
 void addShip1(int** cor, int tagX, int tagY)
 {
-	static int count1p1 = 4;
-	static int count2p1 = 4;
 	if (turn1)
 	{
 		if (count1p1 && cor[tagX][tagY] == 0)
@@ -128,167 +158,330 @@ void addShip1(int** cor, int tagX, int tagY)
 
 void addShip2(int** cor, int tagX, int tagY)
 {
-	static int count1p2 = 3;
-	static int count2p2 = 3;
 	int tag2Y = tagY + 1;
-	if (turn1 && tag2Y != 13)
+	int tag2X = tagX + 1;
+	if (!rotated)
 	{
-		if (count1p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+		if (turn1 && tag2Y != 13)
 		{
-			cor[tagX][tagY] = 1;
-			cor[tagX][tag2Y] = 1;
+			if (count1p2 && cor[tagX][tagY] == 0 && cor[tag2X][tagY] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tag2X][tagY] = 1;
 
-			cor[tagX - 1][tagY - 1] = 2;
-			cor[tagX - 1][tagY] = 2;
-			cor[tagX - 1][tag2Y] = 2;
-			cor[tagX - 1][tag2Y + 1] = 2;
-			cor[tagX + 1][tagY - 1] = 2;
-			cor[tagX + 1][tagY] = 2;
-			cor[tagX + 1][tag2Y] = 2;
-			cor[tagX + 1][tag2Y + 1] = 2;
-			cor[tagX][tagY - 1] = 2;
-			cor[tagX][tag2Y + 1] = 2;
+				cor[tagX - 1][tagY - 1] = 2;//
+				cor[tagX - 1][tagY] = 2;//
+				cor[tagX - 1][tag2Y] = 2;//
 
-			count1p2--;
-			maxShip1--;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag2Y] = 2;
+				cor[tag2X][tagY - 1] = 2;
+				cor[tag2X][tag2Y] = 2;
+
+				cor[tag2X + 1][tagY - 1] = 2;//
+				cor[tag2X + 1][tagY] = 2;//
+				cor[tag2X + 1][tag2Y] = 2;//
+
+				
+
+				count1p2--;
+				maxShip1--;
+			}
+			else if (count1p2 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
 		}
-		else if (count1p2 == 0)
+		else if (turn2 && tag2Y != 13)
 		{
-			cout << "\nYou don't have a ship with 2 power";
-			Sleep(1500);
-		}
-		else {
-			cout << "\nYour choice is very close to the protected land";
-			Sleep(1500);
-		}
-	}
-	else if (turn2 && tag2Y != 13)
-	{
-		if (count2p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
-		{
-			cor[tagX][tagY] = 1;
-			cor[tagX][tag2Y] = 1;
+			if (count2p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tag2X][tagY] = 1;
 
-			cor[tagX - 1][tagY - 1] = 2;
-			cor[tagX - 1][tagY] = 2;
-			cor[tagX - 1][tag2Y] = 2;
-			cor[tagX - 1][tag2Y + 1] = 2;
-			cor[tagX + 1][tagY - 1] = 2;
-			cor[tagX + 1][tagY] = 2;
-			cor[tagX + 1][tag2Y] = 2;
-			cor[tagX + 1][tag2Y + 1] = 2;
-			cor[tagX][tagY - 1] = 2;
-			cor[tagX][tag2Y + 1] = 2;
+				cor[tagX - 1][tagY - 1] = 2;//
+				cor[tagX - 1][tagY] = 2;//
+				cor[tagX - 1][tag2Y] = 2;//
 
-			count2p2--;
-			maxShip2--;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag2Y] = 2;
+				cor[tag2X][tagY - 1] = 2;
+				cor[tag2X][tag2Y] = 2;
+
+				cor[tag2X + 1][tagY - 1] = 2;//
+				cor[tag2X + 1][tagY] = 2;//
+				cor[tag2X + 1][tag2Y] = 2;//
+
+				count2p2--;
+				maxShip2--;
+			}
+			else if (count2p2 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
 		}
-		else if (count2p2 == 0)
+		else
 		{
-			cout << "\nYou don't have a ship with 2 power";
-			Sleep(1500);
-		}
-		else {
 			cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
 	else
 	{
-		cout << "\nYour choice is very close to the protected land";
-		Sleep(1500);
+		if (turn1 && tag2Y != 13)
+		{
+			if (count1p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tagX][tag2Y] = 1;
+
+				cor[tagX - 1][tagY - 1] = 2;
+				cor[tagX - 1][tagY] = 2;
+				cor[tagX - 1][tag2Y] = 2;
+				cor[tagX - 1][tag2Y + 1] = 2;
+				cor[tagX + 1][tagY - 1] = 2;
+				cor[tagX + 1][tagY] = 2;
+				cor[tagX + 1][tag2Y] = 2;
+				cor[tagX + 1][tag2Y + 1] = 2;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag2Y + 1] = 2;
+
+				count1p2--;
+				maxShip1--;
+			}
+			else if (count1p2 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
+		}
+		else if (turn2 && tag2Y != 13)
+		{
+			if (count2p2 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tagX][tag2Y] = 1;
+
+				cor[tagX - 1][tagY - 1] = 2;
+				cor[tagX - 1][tagY] = 2;
+				cor[tagX - 1][tag2Y] = 2;
+				cor[tagX - 1][tag2Y + 1] = 2;
+				cor[tagX + 1][tagY - 1] = 2;
+				cor[tagX + 1][tagY] = 2;
+				cor[tagX + 1][tag2Y] = 2;
+				cor[tagX + 1][tag2Y + 1] = 2;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag2Y + 1] = 2;
+
+				count2p2--;
+				maxShip2--;
+			}
+			else if (count2p2 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
+		}
+		else
+		{
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
 }
 
 void addShip3(int** cor, int tagX, int tagY)
 {
-	static int count2p3 = 2;
-	static int count1p3 = 2;
 	int tag2Y = tagY + 1;
+	int tag2X = tagX + 1;
 	int tag3Y = tagY + 2;
-	if (turn1 && tag3Y != 13)
+	int tag3X = tagX + 2;
+
+	if (!rotated)
 	{
-		if (count1p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+		if (turn1 && tag3Y != 13)
 		{
-			cor[tagX][tagY] = 1;
-			cor[tagX][tag2Y] = 1;
-			cor[tagX][tag3Y] = 1;
+			if (count1p3 && cor[tagX][tagY] == 0 && cor[tag2X][tagY] == 0 && cor[tag3X][tagY] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tag2X][tagY] = 1;
+				cor[tag3X][tagY] = 1;
 
-			cor[tagX - 1][tagY - 1] = 2;
-			cor[tagX - 1][tagY] = 2;
-			cor[tagX - 1][tag2Y] = 2;
-			cor[tagX - 1][tag3Y] = 2;
-			cor[tagX - 1][tag3Y + 1] = 2;
-			cor[tagX + 1][tagY - 1] = 2;
-			cor[tagX + 1][tagY] = 2;
-			cor[tagX + 1][tag2Y] = 2;
-			cor[tagX + 1][tag3Y] = 2;
-			cor[tagX + 1][tag3Y + 1] = 2;
-			cor[tagX][tagY - 1] = 2;
-			cor[tagX][tag3Y + 1] = 2;
+				cor[tagX - 1][tagY - 1] = 2;//
+				cor[tagX - 1][tagY] = 2;//
+				cor[tagX - 1][tag2Y] = 2;//
 
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag2Y] = 2;
+				cor[tag2X][tagY - 1] = 2;
+				cor[tag2X][tag2Y] = 2;
+				cor[tag3X][tagY - 1] = 2;
+				cor[tag3X][tag2Y] = 2;
 
-			maxShip1--;
-			count1p3--;
+				cor[tag3X + 1][tagY - 1] = 2;//
+				cor[tag3X + 1][tagY] = 2;//
+				cor[tag3X + 1][tag2Y] = 2;//
 
+				maxShip1--;
+				count1p3--;
+
+			}
+			else if (count1p3 == 0)
+			{
+				cout << "\nYou don't have a ship with 3 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
 		}
-		else if (count1p3 == 0)
+		else if (turn2 && tag3Y != 13)
 		{
-			cout << "\nYou don't have a ship with 3 power";
-			Sleep(1500);
+			if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tagX][tag2Y] = 1;
+				cor[tagX][tag3Y] = 1;
+
+				cor[tagX - 1][tagY - 1] = 2;
+				cor[tagX - 1][tagY] = 2;
+				cor[tagX - 1][tag2Y] = 2;
+				cor[tagX - 1][tag3Y] = 2;
+				cor[tagX - 1][tag3Y + 1] = 2;
+				cor[tagX + 1][tagY - 1] = 2;
+				cor[tagX + 1][tagY] = 2;
+				cor[tagX + 1][tag2Y] = 2;
+				cor[tagX + 1][tag3Y] = 2;
+				cor[tagX + 1][tag3Y + 1] = 2;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag3Y + 1] = 2;
+
+
+				maxShip2--;
+				count2p3--;
+
+			}
+			else if (count2p3 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
 		}
-		else {
-			cout << "\nYour choice is very close to the protected land";
-			Sleep(1500);
-		}
-	}
-	else if (turn2 && tag3Y != 13)
-	{
-		if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+		else
 		{
-			cor[tagX][tagY] = 1;
-			cor[tagX][tag2Y] = 1;
-			cor[tagX][tag3Y] = 1;
-
-			cor[tagX - 1][tagY - 1] = 2;
-			cor[tagX - 1][tagY] = 2;
-			cor[tagX - 1][tag2Y] = 2;
-			cor[tagX - 1][tag3Y] = 2;
-			cor[tagX - 1][tag3Y + 1] = 2;
-			cor[tagX + 1][tagY - 1] = 2;
-			cor[tagX + 1][tagY] = 2;
-			cor[tagX + 1][tag2Y] = 2;
-			cor[tagX + 1][tag3Y] = 2;
-			cor[tagX + 1][tag3Y + 1] = 2;
-			cor[tagX][tagY - 1] = 2;
-			cor[tagX][tag3Y + 1] = 2;
-
-
-			maxShip2--;
-			count2p3--;
-
-		}
-		else if (count2p3 == 0)
-		{
-			cout << "\nYou don't have a ship with 2 power";
-			Sleep(1500);
-		}
-		else {
 			cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
 	else
 	{
-		cout << "\nYour choice is very close to the protected land";
-		Sleep(1500);
+		if (turn1 && tag3Y != 13)
+		{
+			if (count1p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tagX][tag2Y] = 1;
+				cor[tagX][tag3Y] = 1;
+
+				cor[tagX - 1][tagY - 1] = 2;
+				cor[tagX - 1][tagY] = 2;
+				cor[tagX - 1][tag2Y] = 2;
+				cor[tagX - 1][tag3Y] = 2;
+				cor[tagX - 1][tag3Y + 1] = 2;
+				cor[tagX + 1][tagY - 1] = 2;
+				cor[tagX + 1][tagY] = 2;
+				cor[tagX + 1][tag2Y] = 2;
+				cor[tagX + 1][tag3Y] = 2;
+				cor[tagX + 1][tag3Y + 1] = 2;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag3Y + 1] = 2;
+
+
+				maxShip1--;
+				count1p3--;
+
+			}
+			else if (count1p3 == 0)
+			{
+				cout << "\nYou don't have a ship with 3 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
+		}
+		else if (turn2 && tag3Y != 13)
+		{
+			if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+			{
+				cor[tagX][tagY] = 1;
+				cor[tagX][tag2Y] = 1;
+				cor[tagX][tag3Y] = 1;
+
+				cor[tagX - 1][tagY - 1] = 2;
+				cor[tagX - 1][tagY] = 2;
+				cor[tagX - 1][tag2Y] = 2;
+				cor[tagX - 1][tag3Y] = 2;
+				cor[tagX - 1][tag3Y + 1] = 2;
+				cor[tagX + 1][tagY - 1] = 2;
+				cor[tagX + 1][tagY] = 2;
+				cor[tagX + 1][tag2Y] = 2;
+				cor[tagX + 1][tag3Y] = 2;
+				cor[tagX + 1][tag3Y + 1] = 2;
+				cor[tagX][tagY - 1] = 2;
+				cor[tagX][tag3Y + 1] = 2;
+
+
+				maxShip2--;
+				count2p3--;
+
+			}
+			else if (count2p3 == 0)
+			{
+				cout << "\nYou don't have a ship with 2 power";
+				Sleep(1500);
+			}
+			else {
+				cout << "\nYour choice is very close to the protected land";
+				Sleep(1500);
+			}
+		}
+		else
+		{
+			cout << "\nYour choice is very close to the protected land";
+			Sleep(1500);
+		}
 	}
 }
 
 void mainController(int& c)
 {
 	int k;
-	switch (k = _putch(_getch()))
+	switch (k = _getch())
 	{
 	case KEY_UP:
 		c = 0;
@@ -330,7 +523,7 @@ void mainController(int& c)
 void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 {
 	int c = 0;
-	switch ((c = _putch(_getch())))
+	switch (c = _getch())
 	{
 	case KEY_UP:
 		if (tagX != 1)
@@ -351,17 +544,23 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 	case 'e':
 	case 'E':
 		if (isActive1)
+			//cor[tagX][tagY]=1;
 			addShip1(cor, tagX, tagY);
 		else if (isActive2)
 			addShip2(cor, tagX, tagY);
 		else if (isActive3)
 			addShip3(cor, tagX, tagY);
 		break;
+	case 'r':
+	case 'R':
+		if (rotated)
+			rotated = false;
+		else rotated = true;
+		break;
 	case 'f':
 	case 'F':
 		int k = 0;
-		cout << "Enter Power of Your Ship: " << endl;
-		cout << "1-*\n2-**\n3-***";
+		cout << "Enter Power of Your Ship: ";
 		cin >> k;
 		switch (k)
 		{
@@ -380,9 +579,8 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 			isActive2 = 0;
 			isActive3 = 1;
 			break;
-		default:
-			break;
 		}
+		break;
 	}
 }
 
@@ -459,7 +657,7 @@ void attackShip(int** cor, int tagX, int tagY)
 void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
 {
 	int c = 0;
-	switch ((c = _putch(_getch())))
+	switch ((c = _getch()))
 	{
 	case KEY_UP:
 		if (tagX != 1)

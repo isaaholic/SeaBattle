@@ -10,6 +10,12 @@
 
 using namespace std;
 
+int count1p1 = 4;
+int count2p1 = 4;
+int count1p2 = 3;
+int count2p2 = 3;
+int count2p3 = 2;
+int count1p3 = 2;
 bool isActive1 = false;
 bool isActive2 = false;
 bool isActive3 = false;
@@ -24,9 +30,10 @@ bool turn1 = true;
 bool turn2 = false;
 bool placeMod = false;
 bool battleMod = false;
-bool detected = true;
+bool rotated = true;
 bool isMain = true;
 HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+
 
 #include "Header.h"
 
@@ -83,8 +90,20 @@ int main()
 		cout << endl;
 		showFullTableForPlace(fulltable);
 		cout << "Press 'f' to select ship";
-		cout << maxShip1 << endl;
-		cout << maxShip2 << endl;
+		if (turn1)
+		{
+			cout << endl;
+			cout << "1) * - " << count1p1<<endl;
+			cout << "2) ** - " << count1p2 << endl;
+			cout << "3) *** - " << count1p3 << endl;
+		}
+		else
+		{
+			cout << endl;
+			cout <<setw(24)<< "1) * - " << count2p1 << endl;
+			cout <<setw(24)<< "2) ** - " << count2p2 << endl;
+			cout <<setw(24)<< "3) *** - " << count2p3 << endl;
+		}
 		if (turn1)
 			crossControllerForPlace(cordinate1, tagX, tagY, row);
 		if (turn2)
