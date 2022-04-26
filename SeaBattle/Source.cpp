@@ -36,20 +36,15 @@ HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
 #include "Header.h"
+#include "Tables.h"
 
 int main()
 {
+	srand(time(nullptr));
 	cout << right;
-
-	char** playerTableOne;
-	char** playerTableTwo;
-	char** freeTable = createFulltable(row);
-	int** freeCor = createCoArray(row);
-	char** fulltable = createFulltable(row);
-	int** cordinate1 = createCoArray(row);
-	int** cordinate2 = createCoArray(row);
 	fillCordinateArray(cordinate1, row);
 	fillCordinateArray(cordinate2, row);
+	
 	{
 		int c = 0;
 		while (isMain)
@@ -132,9 +127,9 @@ int main()
 		createTableForBattle(playerTableOne, cordinate2, row, tagX, tagY);
 		createTableForBattle(playerTableTwo, cordinate1, row, tagX, tagY);
 		if (turn1)
-			crossShower(playerTableOne, row, tagX, tagY);
+			crossShowerForBattle(playerTableOne, row, tagX, tagY);
 		if (turn2)
-			crossShower(playerTableTwo, row, tagX, tagY);
+			crossShowerForBattle(playerTableTwo, row, tagX, tagY);
 		fullTable(fulltable, playerTableOne, playerTableTwo, row);
 		system("cls");
 		if (turn1)

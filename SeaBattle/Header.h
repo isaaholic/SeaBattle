@@ -1,5 +1,7 @@
 #pragma once
 
+// create Array for both of Tables
+
 char** createFulltable(int size)
 {
 	char** fullTable = new char* [size];
@@ -9,6 +11,8 @@ char** createFulltable(int size)
 	}
 	return fullTable;
 }
+
+//init FullTable
 
 void fullTable(char** arr, char** arr1, char** arr2, int size)
 {
@@ -28,6 +32,8 @@ void fullTable(char** arr, char** arr1, char** arr2, int size)
 	}
 }
 
+// Create Array for Table
+
 char** createArray(int row)
 {
 	char** table = new char* [row];
@@ -36,6 +42,8 @@ char** createArray(int row)
 	return table;
 }
 
+// Create Array for Cordinate
+
 int** createCoArray(int row)
 {
 	int** arr = new int* [row];
@@ -43,6 +51,8 @@ int** createCoArray(int row)
 		arr[i] = new int[row];
 	return arr;
 }
+
+// init Cordinate
 
 void fillCordinateArray(int** arr, int size)
 {
@@ -55,6 +65,24 @@ void fillCordinateArray(int** arr, int size)
 	}
 }
 
+// Cross Showing on the board for Battle Mod
+
+void crossShowerForBattle(char** arr, int size, int tagX, int tagY)
+{
+	for (size_t i = 0; i < size; i++)
+	{
+		for (size_t j = 0; j < size; j++)
+		{
+			if (i == tagX && j == tagY)
+			{
+				arr[i][j] = 43;
+			}
+		}
+	}
+}
+
+// Cross Showing on the board for Place Mod
+
 void crossShower(char** arr, int size, int tagX, int tagY)
 {
 	for (size_t i = 0; i < size; i++)
@@ -65,11 +93,11 @@ void crossShower(char** arr, int size, int tagX, int tagY)
 			{
 				if (isActive1)
 				{
-					arr[i][j]=232;
+					arr[i][j] = 232;
 				}
 				else if (isActive2)
 				{
-						arr[i][j] = 232;
+					arr[i][j] = 232;
 					if (rotated)
 					{
 						arr[i][j + 1] = 232;
@@ -98,6 +126,8 @@ void crossShower(char** arr, int size, int tagX, int tagY)
 		}
 	}
 }
+
+// Adding a Power Ship on the Board
 
 void addShip1(int** cor, int tagX, int tagY)
 {
@@ -156,6 +186,8 @@ void addShip1(int** cor, int tagX, int tagY)
 	}
 }
 
+// Adding 2 Power Ship on the Board
+
 void addShip2(int** cor, int tagX, int tagY)
 {
 	int tag2Y = tagY + 1;
@@ -182,7 +214,7 @@ void addShip2(int** cor, int tagX, int tagY)
 				cor[tag2X + 1][tagY] = 2;//
 				cor[tag2X + 1][tag2Y] = 2;//
 
-				
+
 
 				count1p2--;
 				maxShip1--;
@@ -307,6 +339,8 @@ void addShip2(int** cor, int tagX, int tagY)
 		}
 	}
 }
+
+// Adding 3 Power Ship on the Board
 
 void addShip3(int** cor, int tagX, int tagY)
 {
@@ -478,6 +512,8 @@ void addShip3(int** cor, int tagX, int tagY)
 	}
 }
 
+// Started Menu Controller
+
 void mainController(int& c)
 {
 	int k;
@@ -520,6 +556,8 @@ void mainController(int& c)
 	}
 }
 
+// Cross Movement for PlaceMod
+
 void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 {
 	int c = 0;
@@ -531,7 +569,14 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 		break;
 	case KEY_DOWN:
 		if (tagX != size - 2)
-			tagX++;
+		{
+			if (!(isActive2 && !rotated && tagX >= 11))
+			{
+				if (!(isActive3 && !rotated && tagX >= 10))
+					tagX++;
+			}
+
+		}
 		break;
 	case KEY_LEFT:
 		if (tagY != 1)
@@ -539,7 +584,13 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 		break;
 	case KEY_RIGHT:
 		if (tagY != size - 2)
-			tagY++;
+		{
+			if (!(isActive2 && rotated && tagY == 11))
+			{
+				if (!(isActive3 && rotated && tagY == 10))
+					tagY++;
+			}
+		}
 		break;
 	case 'e':
 	case 'E':
@@ -553,6 +604,14 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 		break;
 	case 'r':
 	case 'R':
+		if (tagX >= 11 && isActive3)
+			break;
+		else if (tagX >= 12 && isActive2)
+			break;
+		if (tagY >= 11 && isActive3)
+			break;
+		else if (tagY >= 12 && isActive2)
+			break;
 		if (rotated)
 			rotated = false;
 		else rotated = true;
@@ -570,11 +629,21 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 			isActive3 = 0;
 			break;
 		case 2:
+			if (!rotated && tagX == 12)
+				rotated = true;
+			else if (rotated && tagY == 12)
+				rotated = false;
 			isActive1 = 0;
 			isActive2 = 1;
 			isActive3 = 0;
 			break;
 		case 3:
+			if (tagY >= 11 && tagX >= 11)
+				break;
+			if (!rotated && tagX >= 11)
+				rotated = true;
+			else if (rotated && tagY >= 11)
+				rotated = false;
 			isActive1 = 0;
 			isActive2 = 0;
 			isActive3 = 1;
@@ -583,6 +652,8 @@ void crossControllerForPlace(int** cor, int& tagX, int& tagY, int size)
 		break;
 	}
 }
+
+// Attack Any Ship
 
 void attackShip(int** cor, int tagX, int tagY)
 {
@@ -625,11 +696,11 @@ void attackShip(int** cor, int tagX, int tagY)
 			cor[tagX][tagY] = 4;
 			if (turn1)
 			{
-				liveShip1--;
+				liveShip2--;
 			}
 			else if (turn2)
 			{
-				liveShip2--;
+				liveShip1--;
 			}
 		}
 	}
@@ -653,6 +724,8 @@ void attackShip(int** cor, int tagX, int tagY)
 		}
 	}
 }
+
+// Cross Movement For BattleMod
 
 void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
 {
@@ -682,6 +755,8 @@ void crossControllerForBattle(int** cor, int& tagX, int& tagY, int size)
 	}
 }
 
+//Table being ready for PlaceMod
+
 void createTableForPlace(char** arr, int** cor, int size, int tagX, int tagY)
 {
 	for (size_t i = 0; i < size; i++)
@@ -695,6 +770,8 @@ void createTableForPlace(char** arr, int** cor, int size, int tagX, int tagY)
 		}
 	}
 }
+
+// Table being ready for BattleMod
 
 void createTableForBattle(char** arr, int** cor, int size, int tagX, int tagY)
 {
@@ -712,6 +789,8 @@ void createTableForBattle(char** arr, int** cor, int size, int tagX, int tagY)
 	}
 }
 
+//Delete Table on heap
+
 void deleteTable(char** arr, int size)
 {
 	for (size_t i = 0; i < size; i++)
@@ -720,6 +799,8 @@ void deleteTable(char** arr, int size)
 	}
 	delete[] arr;
 }
+
+//Show Both of them on PlaceMod
 
 void showFullTableForPlace(char** fulltable)
 {
@@ -749,6 +830,8 @@ void showFullTableForPlace(char** fulltable)
 	}
 }
 
+//Show Both of them on BattleMod
+
 void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 {
 	for (size_t i = 0; i < row; i++)
@@ -758,11 +841,11 @@ void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 		{
 			if (j >= row)
 			{
-				if (cor1[i][j-14] == 3)
+				if (cor1[i][j - 14] == 3)
 					SetConsoleTextAttribute(h, 14);
-				else if (cor1[i][j-14] == 4)
+				else if (cor1[i][j - 14] == 4)
 					SetConsoleTextAttribute(h, 2);
-				else if (cor1[i][j-14] == 5)
+				else if (cor1[i][j - 14] == 5)
 					SetConsoleTextAttribute(h, 4);
 				else
 					SetConsoleTextAttribute(h, 15);
@@ -782,5 +865,26 @@ void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 			}
 		}
 		cout << endl;
+	}
+}
+
+
+//Random Ship Adder
+void randomMode(int** cor)
+{
+	while (1)
+	{
+		int _tagX = 0, _tagY = 0;
+		_tagX = 1 + rand() % (12 - 1 + 1);
+		_tagY = 1 + rand() % (12 - 1 + 1);
+
+		if (cor[_tagX][_tagY] == 0 && count2p1)
+			addShip1(cor, _tagX, _tagY);
+		else if (cor[_tagX][_tagY] == 0 && count2p2)
+			addShip2(cor, _tagX, _tagY);
+		else if (cor[_tagX][_tagY] == 0 && count2p3)
+			addShip3(cor, _tagX, _tagY);
+		else if (!(count2p1 || count2p2 || count2p3))
+			break;
 	}
 }
