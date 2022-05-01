@@ -1,5 +1,14 @@
 #pragma once
 
+char** createFulltable(int size);
+int** createCoArray(int row);
+
+char** playerTableOne;
+char** playerTableTwo;
+char** fulltable = createFulltable(row);
+int** cordinate1 = createCoArray(row);
+int** cordinate2 = createCoArray(row);
+
 // create Array for both of Tables
 
 char** createFulltable(int size)
@@ -147,17 +156,19 @@ void addShip1(int** cor, int tagX, int tagY)
 			count1p1--;
 			maxShip1--;
 		}
-		else if (count1p1 == 0)
+		else if (count1p1 == 0 && !autoMode)
 		{
 			cout << "\nYou don't have a ship with a power";
 			Sleep(1500);
 		}
-		else {
-			cout << "\nYour choice is very close to the protected land";
+		else
+		{
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
-	else
+	else if (turn2)
 	{
 		if (count2p1 && cor[tagX][tagY] == 0)
 		{
@@ -174,13 +185,14 @@ void addShip1(int** cor, int tagX, int tagY)
 			maxShip2--;
 
 		}
-		else if (count2p1 == 0)
+		else if (count2p1 == 0 && !autoMode)
 		{
 			cout << "\nYou don't have a ship with a power";
 			Sleep(1500);
 		}
 		else {
-			cout << "\nYour choice is very close to the protected land";
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
@@ -219,13 +231,14 @@ void addShip2(int** cor, int tagX, int tagY)
 				count1p2--;
 				maxShip1--;
 			}
-			else if (count1p2 == 0)
+			else if (count1p2 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
@@ -252,19 +265,21 @@ void addShip2(int** cor, int tagX, int tagY)
 				count2p2--;
 				maxShip2--;
 			}
-			else if (count2p2 == 0)
+			else if (count2p2 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
 		else
 		{
-			cout << "\nYour choice is very close to the protected land";
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
@@ -291,13 +306,14 @@ void addShip2(int** cor, int tagX, int tagY)
 				count1p2--;
 				maxShip1--;
 			}
-			else if (count1p2 == 0)
+			else if (count1p2 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
@@ -322,19 +338,21 @@ void addShip2(int** cor, int tagX, int tagY)
 				count2p2--;
 				maxShip2--;
 			}
-			else if (count2p2 == 0)
+			else if (count2p2 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
 		else
 		{
-			cout << "\nYour choice is very close to the protected land";
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
@@ -378,55 +396,60 @@ void addShip3(int** cor, int tagX, int tagY)
 				count1p3--;
 
 			}
-			else if (count1p3 == 0)
+			else if (count1p3 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 3 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
 		else if (turn2 && tag3Y != 13)
 		{
-			if (count2p3 && cor[tagX][tagY] == 0 && cor[tagX][tag2Y] == 0 && cor[tagX][tag3Y] == 0)
+			if (count2p3 && cor[tagX][tagY] == 0 && cor[tag2X][tagY] == 0 && cor[tag3X][tagY] == 0)
 			{
 				cor[tagX][tagY] = 1;
-				cor[tagX][tag2Y] = 1;
-				cor[tagX][tag3Y] = 1;
+				cor[tag2X][tagY] = 1;
+				cor[tag3X][tagY] = 1;
 
-				cor[tagX - 1][tagY - 1] = 2;
-				cor[tagX - 1][tagY] = 2;
-				cor[tagX - 1][tag2Y] = 2;
-				cor[tagX - 1][tag3Y] = 2;
-				cor[tagX - 1][tag3Y + 1] = 2;
-				cor[tagX + 1][tagY - 1] = 2;
-				cor[tagX + 1][tagY] = 2;
-				cor[tagX + 1][tag2Y] = 2;
-				cor[tagX + 1][tag3Y] = 2;
-				cor[tagX + 1][tag3Y + 1] = 2;
+				cor[tagX - 1][tagY - 1] = 2;//
+				cor[tagX - 1][tagY] = 2;//
+				cor[tagX - 1][tag2Y] = 2;//
+
 				cor[tagX][tagY - 1] = 2;
-				cor[tagX][tag3Y + 1] = 2;
+				cor[tagX][tag2Y] = 2;
+				cor[tag2X][tagY - 1] = 2;
+				cor[tag2X][tag2Y] = 2;
+				cor[tag3X][tagY - 1] = 2;
+				cor[tag3X][tag2Y] = 2;
+
+				cor[tag3X + 1][tagY - 1] = 2;//
+				cor[tag3X + 1][tagY] = 2;//
+				cor[tag3X + 1][tag2Y] = 2;//
 
 
 				maxShip2--;
 				count2p3--;
 
 			}
-			else if (count2p3 == 0)
+			else if (count2p3 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
 		else
 		{
-			cout << "\nYour choice is very close to the protected land";
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
@@ -458,13 +481,14 @@ void addShip3(int** cor, int tagX, int tagY)
 				count1p3--;
 
 			}
-			else if (count1p3 == 0)
+			else if (count1p3 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 3 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
@@ -494,67 +518,26 @@ void addShip3(int** cor, int tagX, int tagY)
 				count2p3--;
 
 			}
-			else if (count2p3 == 0)
+			else if (count2p3 == 0 && !autoMode)
 			{
 				cout << "\nYou don't have a ship with 2 power";
 				Sleep(1500);
 			}
 			else {
-				cout << "\nYour choice is very close to the protected land";
+				if (!autoMode)
+					cout << "\nYour choice is very close to the protected land";
 				Sleep(1500);
 			}
 		}
 		else
 		{
-			cout << "\nYour choice is very close to the protected land";
+			if (!autoMode)
+				cout << "\nYour choice is very close to the protected land";
 			Sleep(1500);
 		}
 	}
 }
 
-// Started Menu Controller
-
-void mainController(int& c)
-{
-	int k;
-	switch (k = _getch())
-	{
-	case KEY_UP:
-		c = 0;
-		break;
-	case KEY_DOWN:
-		c = 1;
-		break;
-	case 'e':
-	case 'E':
-		system("cls||clear");
-		if (c == 0)
-		{
-			cout << "Starting game.";
-			int f = 5;
-			while (f)
-			{
-				system("cls||clear");
-				cout << "Starting game..";
-				Sleep(250);
-				system("cls||clear");
-				cout << "Starting game...";
-				Sleep(250);
-				system("cls||clear");
-				cout << "Starting game..";
-				Sleep(250);
-				system("cls||clear");
-				cout << "Starting game.";
-				Sleep(250);
-				f--;
-			}
-			isMain = false;
-			placeMod = true;
-		}
-		else exit(0);
-		break;
-	}
-}
 
 // Cross Movement for PlaceMod
 
@@ -659,6 +642,9 @@ void attackShip(int** cor, int tagX, int tagY)
 {
 	if (cor[tagX][tagY] == 1)
 	{
+		correctAttack = true;
+		recX = tagX;
+		recY = tagY;
 		if (cor[tagX][tagY + 1] == 1)
 			cor[tagX][tagY] = 3;
 		else if (cor[tagX][tagY - 1] == 1)
@@ -697,10 +683,14 @@ void attackShip(int** cor, int tagX, int tagY)
 			if (turn1)
 			{
 				liveShip2--;
+				correctAttack = false;
+				sideR = true;
 			}
 			else if (turn2)
 			{
 				liveShip1--;
+				correctAttack = false;
+				sideR = true;
 			}
 		}
 	}
@@ -868,23 +858,308 @@ void showFullTableForBattle(char** fulltable, int** cor1, int** cor2)
 	}
 }
 
-
 //Random Ship Adder
-void randomMode(int** cor)
+
+void randomMode(int**& cor)
 {
 	while (1)
 	{
+		autoMode = true;
 		int _tagX = 0, _tagY = 0;
 		_tagX = 1 + rand() % (12 - 1 + 1);
 		_tagY = 1 + rand() % (12 - 1 + 1);
+		if (turn2)
+		{
+			if (cor[_tagX][_tagY] == 0 && count2p1 != 0)
+				addShip1(cor, _tagX, _tagY);
+			else if (cor[_tagX][_tagY] == 0 && count2p2 != 0)
+				addShip2(cor, _tagX, _tagY);
+			else if (cor[_tagX][_tagY] == 0 && count2p3 != 0)
+				addShip3(cor, _tagX, _tagY);
+			else if (!(count2p1 || count2p2 || count2p3))
+			{
+				autoMode = false;
+				break;
+			}
+		}
+		else if (turn1)
+		{
+			if (cor[_tagX][_tagY] == 0 && count1p1 != 0)
+				addShip1(cor, _tagX, _tagY);
+			else if (cor[_tagX][_tagY] == 0 && count1p2 != 0)
+				addShip2(cor, _tagX, _tagY);
+			else if (cor[_tagX][_tagY] == 0 && count1p3 != 0)
+				addShip3(cor, _tagX, _tagY);
+			else if (!(count1p1 || count1p2 || count1p3))
+			{
+				autoMode = false;
+				break;
+			}
+		}
+	}
+	autoMode = false;
+}
 
-		if (cor[_tagX][_tagY] == 0 && count2p1)
-			addShip1(cor, _tagX, _tagY);
-		else if (cor[_tagX][_tagY] == 0 && count2p2)
-			addShip2(cor, _tagX, _tagY);
-		else if (cor[_tagX][_tagY] == 0 && count2p3)
-			addShip3(cor, _tagX, _tagY);
-		else if (!(count2p1 || count2p2 || count2p3))
-			break;
+// Started Menu Controller
+
+void mainController(int& c)
+{
+	int k;
+	switch (k = _getch())
+	{
+	case KEY_UP:
+		c = 0;
+		break;
+	case KEY_DOWN:
+		c = 1;
+		break;
+	case 'e':
+	case 'E':
+		system("cls||clear");
+		if (c == 0)
+		{
+			isMain = false;
+			isSelectPlace = true;
+		}
+		else
+		{
+			isMain = false;
+			game = false;
+		}
+		break;
+	}
+}
+
+void placeController(int& c)
+{
+	int k;
+	switch (k = _getch())
+	{
+	case KEY_UP:
+		c = 0;
+		break;
+	case KEY_DOWN:
+		c = 1;
+		break;
+	case 'e':
+	case 'E':
+		if (c == 0)
+		{
+			bool tre = true;
+			isSelectPlace = false;
+			while (tre)
+			{
+				system("cls||clear");
+				cout << "Player 1: ";
+				if (isMode1 == 1)
+				{
+					SetConsoleTextAttribute(h, 9);
+					cout << "Manual";
+					SetConsoleTextAttribute(h, 15);
+				}
+				else if (isMode1 == 2)
+				{
+					SetConsoleTextAttribute(h, 10);
+					cout << "Automatic";
+					SetConsoleTextAttribute(h, 15);
+				}
+				else
+				{
+					SetConsoleTextAttribute(h, 12);
+					cout << "Bot";
+					SetConsoleTextAttribute(h, 15);
+				}
+				c == 0 ? cout << char(60) : cout << ' ';
+				cout << endl;
+				cout << "Player 2: ";
+				if (isMode2 == 1)
+				{
+					SetConsoleTextAttribute(h, 9);
+					cout << "Manual";
+					SetConsoleTextAttribute(h, 15);
+				}
+				else if (isMode2 == 2)
+				{
+					SetConsoleTextAttribute(h, 10);
+					cout << "Automatic";
+					SetConsoleTextAttribute(h, 15);
+				}
+				else
+				{
+					SetConsoleTextAttribute(h, 12);
+					cout << "Bot";
+					SetConsoleTextAttribute(h, 15);
+				}
+				c == 1 ? cout << char(60) : cout << ' ';
+				cout << "\nDone";
+				c == 2 ? cout << char(60) : cout << ' ';
+
+				switch (k = _getch())
+				{
+				case KEY_UP:
+					if (c > 0)
+						c--;
+					else
+						c = 2;
+					break;
+				case KEY_DOWN:
+					if (c < 2)
+						c++;
+					else
+						c = 0;
+					break;
+				case KEY_LEFT:
+					if (c == 0)
+					{
+						if (isMode1 < 2)
+							isMode1++;
+						else
+							isMode1 = 0;
+					}
+					else if (c == 1)
+					{
+						if (isMode2 < 2)
+							isMode2++;
+						else
+							isMode2 = 0;
+					}
+					break;
+				case KEY_RIGHT:
+					if (c == 0)
+					{
+						if (isMode1 > 0)
+							isMode1--;
+						else
+							isMode1 = 2;
+					}
+					else if (c == 1)
+					{
+						if (isMode2 > 0)
+							isMode2--;
+						else
+							isMode2 = 2;
+					}
+					break;
+				case 'e':
+				case 'E':
+					if (c == 2)
+					{
+						if (isMode1 == 2)
+						{
+							turn1 = true;
+							randomMode(cordinate1);
+							turn1 = false;
+							turn2 = true;
+						}
+						else if (isMode1 == 0)
+						{
+							turn1 = true;
+							randomMode(cordinate1);
+							rturn1 = true;
+							turn1 = false;
+							turn2 = true;
+						}
+						placeMod = true;
+
+						tre = false;
+					}
+					break;
+				}
+			}
+		}
+	}
+}
+
+void BotMode(int** cor)
+{
+	if (!correctAttack)
+	{
+		static int _tagX, _tagY;
+		_tagX = 1 + rand() % (12 - 1 + 1);
+		_tagY = 1 + rand() % (12 - 1 + 1);
+		attackShip(cor, _tagX, _tagY);
+	}
+	else
+	{
+		if (sideR)
+		{
+			if (cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
+			{
+				attackShip(cor, recX, recY + 1);
+			}
+			else
+			{
+				sideL = true;
+				sideR = false;
+			}
+		}
+		else if (sideL)
+		{
+			if (cor[recX][recY - 1] != 3 && cor[recX][recY + -1] != 4 && cor[recX][recY + -1] != 5)
+			{
+				attackShip(cor, recX, recY - 1);
+			}
+			else
+			{
+				sideU = true;
+				sideL = false;
+			}
+		}
+		/*	while (true)
+			{
+				if (sideR)
+				{
+					if (cor[recX][recY + 1] != 2&& cor[recX][recY + 1] != 3&& cor[recX][recY + 1] != 4&& cor[recX][recY + 1] != 5)
+					{
+						attackShip(cor, recX, recY + 1);
+						break;
+					}
+					else
+					{
+						sideL = true;
+						sideR = false;
+					}
+				}
+				else if (sideL)
+				{
+					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
+					{
+						attackShip(cor, recX, recY - 1);
+						break;
+					}
+					else
+					{
+						sideU = true;
+						sideL = false;
+					}
+				}
+				else if (sideU)
+				{
+					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
+					{
+						attackShip(cor, recX + 1, recY);
+						break;
+					}
+					else
+					{
+						sideD = true;
+						sideU = false;
+					}
+				}
+				else if (sideD)
+				{
+					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
+					{
+						attackShip(cor, recX - 1, recY);
+						break;
+					}
+					else
+					{
+						sideL = true;
+						sideD = false;
+					}
+				}
+				break;
+			}*/
 	}
 }
