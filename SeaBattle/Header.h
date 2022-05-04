@@ -684,12 +684,18 @@ void attackShip(int** cor, int tagX, int tagY)
 			{
 				liveShip2--;
 				correctAttack = false;
+				sideD = false;
+				sideU = false;
+				sideL = false;
 				sideR = true;
 			}
 			else if (turn2)
 			{
 				liveShip1--;
 				correctAttack = false;
+				sideD = false;
+				sideU = false;
+				sideL = false;
 				sideR = true;
 			}
 		}
@@ -872,9 +878,9 @@ void randomMode(int**& cor)
 		{
 			if (cor[_tagX][_tagY] == 0 && count2p1 != 0)
 				addShip1(cor, _tagX, _tagY);
-			else if (cor[_tagX][_tagY] == 0 && count2p2 != 0)
+			else if (cor[_tagX][_tagY] == 0 && count2p2 != 0 && _tagX <= 11 && _tagY <= 11)
 				addShip2(cor, _tagX, _tagY);
-			else if (cor[_tagX][_tagY] == 0 && count2p3 != 0)
+			else if (cor[_tagX][_tagY] == 0 && count2p3 != 0 && _tagX <= 10 && _tagY <= 10)
 				addShip3(cor, _tagX, _tagY);
 			else if (!(count2p1 || count2p2 || count2p3))
 			{
@@ -886,15 +892,29 @@ void randomMode(int**& cor)
 		{
 			if (cor[_tagX][_tagY] == 0 && count1p1 != 0)
 				addShip1(cor, _tagX, _tagY);
-			else if (cor[_tagX][_tagY] == 0 && count1p2 != 0)
+			else if (cor[_tagX][_tagY] == 0 && count1p2 != 0 && _tagX <= 11 && _tagY <= 11)
 				addShip2(cor, _tagX, _tagY);
-			else if (cor[_tagX][_tagY] == 0 && count1p3 != 0)
+			else if (cor[_tagX][_tagY] == 0 && count1p3 != 0 && _tagX <= 10 && _tagY <= 10)
 				addShip3(cor, _tagX, _tagY);
 			else if (!(count1p1 || count1p2 || count1p3))
 			{
 				autoMode = false;
 				break;
 			}
+		}
+		if (_tagX >= 11 && isActive3)
+			continue;
+		else if (_tagX >= 12 && isActive2)
+			continue;
+		if (_tagY >= 11 && isActive3)
+			continue;
+		else if (_tagY >= 12 && isActive2)
+			continue;
+		else
+		{
+			if (rotated)
+				rotated = false;
+			else rotated = true;
 		}
 	}
 	autoMode = false;
@@ -1067,6 +1087,13 @@ void placeController(int& c)
 				}
 			}
 		}
+		else if (c == 1)
+		{
+		system("cls");
+		cout << "Welcome to BattleShip\nWe have 3 mod:\n1)Automatic\n2)Manual\n3)Bot\n\nIf you want to choose any ship,you should press f and write 1/2/3\nIf you want to add any ship press e\nIf you want to attack any coordinate,press e";
+		_getch();
+		system("cls");
+		}
 	}
 }
 
@@ -1083,7 +1110,7 @@ void BotMode(int** cor)
 	{
 		if (sideR)
 		{
-			if (cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
+			if (cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5 && recY + 1 < 13)
 			{
 				attackShip(cor, recX, recY + 1);
 			}
@@ -1095,7 +1122,7 @@ void BotMode(int** cor)
 		}
 		else if (sideL)
 		{
-			if (cor[recX][recY - 1] != 3 && cor[recX][recY + -1] != 4 && cor[recX][recY + -1] != 5)
+			if (cor[recX][recY - 1] != 3 && cor[recX][recY - 1] != 4 && cor[recX][recY + -1] != 5 && recY - 1 > 0)
 			{
 				attackShip(cor, recX, recY - 1);
 			}
@@ -1105,61 +1132,30 @@ void BotMode(int** cor)
 				sideL = false;
 			}
 		}
-		/*	while (true)
+		else if (sideU)
+		{
+			if (cor[recX - 1][recY] != 3 && cor[recX - 1][recY] != 4 && cor[recX - 1][recY] != 5 && recX - 1 > 0)
 			{
-				if (sideR)
-				{
-					if (cor[recX][recY + 1] != 2&& cor[recX][recY + 1] != 3&& cor[recX][recY + 1] != 4&& cor[recX][recY + 1] != 5)
-					{
-						attackShip(cor, recX, recY + 1);
-						break;
-					}
-					else
-					{
-						sideL = true;
-						sideR = false;
-					}
-				}
-				else if (sideL)
-				{
-					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
-					{
-						attackShip(cor, recX, recY - 1);
-						break;
-					}
-					else
-					{
-						sideU = true;
-						sideL = false;
-					}
-				}
-				else if (sideU)
-				{
-					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
-					{
-						attackShip(cor, recX + 1, recY);
-						break;
-					}
-					else
-					{
-						sideD = true;
-						sideU = false;
-					}
-				}
-				else if (sideD)
-				{
-					if (cor[recX][recY + 1] != 2 && cor[recX][recY + 1] != 3 && cor[recX][recY + 1] != 4 && cor[recX][recY + 1] != 5)
-					{
-						attackShip(cor, recX - 1, recY);
-						break;
-					}
-					else
-					{
-						sideL = true;
-						sideD = false;
-					}
-				}
-				break;
-			}*/
+				attackShip(cor, recX - 1, recY);
+			}
+			else
+			{
+				sideD = true;
+				sideU = false;
+			}
+		}
+		else if (sideD)
+		{
+			if (cor[recX + 1][recY] != 3 && cor[recX + 1][recY] != 4 && cor[recX + 1][recY] != 5 && recX + 1 < 13)
+			{
+				attackShip(cor, recX + 1, recY);
+			}
+			else
+			{
+				sideU = false;
+				sideR = true;
+			}
+		}
+
 	}
 }

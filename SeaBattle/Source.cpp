@@ -88,16 +88,16 @@ int main()
 			int c = 0;
 			while (isSelectPlace)
 			{
-				system("cls||clear");
+				cout << "\x1B[2J\x1B[H";
 				SetConsoleTextAttribute(h, 9);
-				cout << setw(30) << "New Game: " << endl;
+				cout << setw(24) << "New Game: " << endl;
 				SetConsoleTextAttribute(h, 12);
 				cout << setw(25) << "Select player:";
 				SetConsoleTextAttribute(h, 15);
 				c == 0 ? cout << char(60) : cout << ' ';
 				cout << endl;
 				SetConsoleTextAttribute(h, 10);
-				cout << setw(26) << " Settings";
+				cout << setw(26) << " How to play ? ";
 				SetConsoleTextAttribute(h, 15);
 				c == 1 ? cout << char(60) : cout << ' ';
 				cout << endl;
@@ -117,7 +117,7 @@ int main()
 				crossShower(playerTableTwo, row, tagX, tagY);
 			fullTable(fulltable, playerTableOne, playerTableTwo, row);
 			//showTable(table, cordinate, row, tagX, tagY);
-			system("cls");
+			cout << "\x1B[2J\x1B[H";
 			if (turn1)
 				cout << "Player 1:";
 			else cout << setw(24) << "Player 2: ";
@@ -185,7 +185,7 @@ int main()
 			if (turn2 && !rturn2)
 				crossShowerForBattle(playerTableTwo, row, tagX, tagY);
 			fullTable(fulltable, playerTableOne, playerTableTwo, row);
-			system("cls");
+			system("cls||clear");
 			if (turn1)
 				cout << "Player 1:";
 			else cout << setw(24) << "Player 2: ";
